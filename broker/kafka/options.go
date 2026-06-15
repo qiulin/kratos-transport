@@ -1,6 +1,7 @@
 package kafka
 
 import (
+	"context"
 	"hash"
 	"time"
 
@@ -326,9 +327,19 @@ func WithHeartbeatInterval(interval time.Duration) broker.SubscribeOption {
 	return broker.SubscribeContextWithValue(heartbeatIntervalKey{}, interval)
 }
 
+func GetHeartbeatInterval(ctx context.Context) (time.Duration, bool) {
+	v, ok := ctx.Value(heartbeatIntervalKey{}).(time.Duration)
+	return v, ok
+}
+
 // WithCommitInterval .
 func WithCommitInterval(interval time.Duration) broker.SubscribeOption {
 	return broker.SubscribeContextWithValue(commitIntervalKey{}, interval)
+}
+
+func GetCommitInterval(ctx context.Context) (time.Duration, bool) {
+	v, ok := ctx.Value(commitIntervalKey{}).(time.Duration)
+	return v, ok
 }
 
 // WithPartitionWatchInterval .
@@ -336,9 +347,19 @@ func WithPartitionWatchInterval(interval time.Duration) broker.SubscribeOption {
 	return broker.SubscribeContextWithValue(partitionWatchIntervalKey{}, interval)
 }
 
+func GetPartitionWatchInterval(ctx context.Context) (time.Duration, bool) {
+	v, ok := ctx.Value(partitionWatchIntervalKey{}).(time.Duration)
+	return v, ok
+}
+
 // WithWatchPartitionChanges .
 func WithWatchPartitionChanges(enable bool) broker.SubscribeOption {
 	return broker.SubscribeContextWithValue(watchPartitionChangesKey{}, enable)
+}
+
+func GetWatchPartitionChanges(ctx context.Context) (bool, bool) {
+	v, ok := ctx.Value(watchPartitionChangesKey{}).(bool)
+	return v, ok
 }
 
 // WithSessionTimeout .

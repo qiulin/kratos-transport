@@ -590,67 +590,67 @@ func (b *kafkaBroker) Subscribe(
 		readerConfig.Dialer = kafkaGo.DefaultDialer
 	}
 
-	if value, ok := b.options.Context.Value(queueCapacityKey{}).(int); ok {
+	if value, ok := options.Context.Value(queueCapacityKey{}).(int); ok {
 		readerConfig.QueueCapacity = value
 	}
-	if value, ok := b.options.Context.Value(minBytesKey{}).(int); ok {
+	if value, ok := options.Context.Value(minBytesKey{}).(int); ok {
 		readerConfig.MinBytes = value
 	}
-	if value, ok := b.options.Context.Value(maxBytesKey{}).(int); ok {
+	if value, ok := options.Context.Value(maxBytesKey{}).(int); ok {
 		readerConfig.MaxBytes = value
 	}
-	if value, ok := b.options.Context.Value(maxWaitKey{}).(time.Duration); ok {
+	if value, ok := options.Context.Value(maxWaitKey{}).(time.Duration); ok {
 		readerConfig.MaxWait = value
 	}
-	if value, ok := b.options.Context.Value(readLagIntervalKey{}).(time.Duration); ok {
+	if value, ok := options.Context.Value(readLagIntervalKey{}).(time.Duration); ok {
 		readerConfig.ReadLagInterval = value
 	}
-	if value, ok := b.options.Context.Value(heartbeatIntervalKey{}).(time.Duration); ok {
+	if value, ok := GetHeartbeatInterval(b.options.Context); ok {
 		readerConfig.HeartbeatInterval = value
 	}
-	if value, ok := b.options.Context.Value(commitIntervalKey{}).(time.Duration); ok {
+	if value, ok := GetCommitInterval(b.options.Context); ok {
 		readerConfig.CommitInterval = value
 	}
-	if value, ok := b.options.Context.Value(partitionWatchIntervalKey{}).(time.Duration); ok {
+	if value, ok := GetPartitionWatchInterval(b.options.Context); ok {
 		readerConfig.PartitionWatchInterval = value
 	}
-	if value, ok := b.options.Context.Value(watchPartitionChangesKey{}).(bool); ok {
+	if value, ok := GetWatchPartitionChanges(b.options.Context); ok {
 		readerConfig.WatchPartitionChanges = value
 	}
-	if value, ok := b.options.Context.Value(sessionTimeoutKey{}).(time.Duration); ok {
+	if value, ok := options.Context.Value(sessionTimeoutKey{}).(time.Duration); ok {
 		readerConfig.SessionTimeout = value
 	}
-	if value, ok := b.options.Context.Value(rebalanceTimeoutKey{}).(time.Duration); ok {
+	if value, ok := options.Context.Value(rebalanceTimeoutKey{}).(time.Duration); ok {
 		readerConfig.RebalanceTimeout = value
 	}
-	if value, ok := b.options.Context.Value(retentionTimeKey{}).(time.Duration); ok {
+	if value, ok := options.Context.Value(retentionTimeKey{}).(time.Duration); ok {
 		readerConfig.RetentionTime = value
 	}
-	if value, ok := b.options.Context.Value(startOffsetKey{}).(int64); ok {
+	if value, ok := options.Context.Value(startOffsetKey{}).(int64); ok {
 		readerConfig.StartOffset = value
 	}
-	if value, ok := b.options.Context.Value(maxAttemptsKey{}).(int); ok {
+	if value, ok := options.Context.Value(maxAttemptsKey{}).(int); ok {
 		readerConfig.MaxAttempts = value
 	}
-	if value, ok := b.options.Context.Value(dialerConfigKey{}).(*kafkaGo.Dialer); ok {
+	if value, ok := options.Context.Value(dialerConfigKey{}).(*kafkaGo.Dialer); ok {
 		readerConfig.Dialer = value
 	}
-	if value, ok := b.options.Context.Value(dialerTimeoutKey{}).(time.Duration); ok {
+	if value, ok := options.Context.Value(dialerTimeoutKey{}).(time.Duration); ok {
 		if readerConfig.Dialer != nil {
 			readerConfig.Dialer.Timeout = value
 		}
 	}
 
-	if value, ok := b.options.Context.Value(partitionKey{}).(int); ok {
+	if value, ok := options.Context.Value(partitionKey{}).(int); ok {
 		readerConfig.Partition = value
 	}
-	if value, ok := b.options.Context.Value(readBatchTimeoutKey{}).(time.Duration); ok {
+	if value, ok := options.Context.Value(readBatchTimeoutKey{}).(time.Duration); ok {
 		readerConfig.ReadBatchTimeout = value
 	}
-	if value, ok := b.options.Context.Value(readBackoffMin{}).(time.Duration); ok {
+	if value, ok := options.Context.Value(readBackoffMin{}).(time.Duration); ok {
 		readerConfig.ReadBackoffMin = value
 	}
-	if value, ok := b.options.Context.Value(readBackoffMax{}).(time.Duration); ok {
+	if value, ok := options.Context.Value(readBackoffMax{}).(time.Duration); ok {
 		readerConfig.ReadBackoffMax = value
 	}
 
